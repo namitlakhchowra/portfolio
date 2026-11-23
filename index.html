@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Namit Lakhchowra</title>
+<script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<style>
+:root {
+  color-scheme: dark;
+  --bg: #000;
+  --fg: #ededed;
+  --muted: #8a8a8a;
+  --line: #1f1f1f;
+  --desc: #bdbdbd;
+  --rule: #444;
+  --faint: #555;
+  --accent: #a9b8d6;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.65 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+main { max-width: 720px; margin: 0 auto; padding: 96px 24px 72px; }
+h1 { font-size: 2rem; font-weight: 500; letter-spacing: -0.02em; margin: 0 0 16px; }
+.intro { color: var(--muted); max-width: 56ch; margin: 0; }
+section { margin-top: 72px; }
+h2 {
+  font: 400 0.75rem/1 var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.row { display: grid; grid-template-columns: 140px 1fr; gap: 8px 24px; padding: 14px 0; }
+.when { font: 0.8rem/1.9 var(--mono); color: var(--muted); }
+.row h3 { font-size: 1rem; font-weight: 500; margin: 0; }
+.sub { color: var(--muted); font-size: 0.92rem; margin: 2px 0 0; }
+ul { margin: 12px 0 0; padding-left: 18px; color: var(--desc); font-size: 0.94rem; }
+li { margin-bottom: 8px; }
+li::marker { color: var(--rule); }
+.tags { font: 0.75rem/1.6 var(--mono); color: var(--muted); margin-top: 10px; }
+a { color: var(--fg); text-decoration: none; border-bottom: 1px solid var(--rule); transition: border-color .2s; }
+a:hover, a:focus-visible { border-color: var(--fg); outline: none; }
+.links { list-style: none; padding: 0; margin: 0; }
+.links li { display: grid; grid-template-columns: 140px 1fr; gap: 24px; margin: 0; padding: 10px 0; }
+.links span { font: 0.8rem/1.9 var(--mono); color: var(--muted); }
+.job { display: flex; gap: 18px; padding: 14px 0; }
+.logo {
+  flex: none; width: 48px; height: 48px; border-radius: 50%;
+  background: #050a14; border: 1px solid var(--line); display: grid; place-items: center;
+  font: 600 1.15rem var(--sans); overflow: hidden;
+}
+.logo img { width: 100%; height: 100%; object-fit: cover; }
+.job-body { flex: 1; min-width: 0; }
+.job-head {
+  display: flex; justify-content: space-between; gap: 16px; align-items: flex-start;
+  width: 100%; margin: 0; padding: 0; background: none; border: 0;
+  color: inherit; font: inherit; text-align: left; cursor: pointer;
+}
+.job-head:focus-visible { outline: 1px solid var(--rule); outline-offset: 6px; border-radius: 6px; }
+.job-head .sub { display: block; margin: 2px 0 0; }
+.right { display: flex; align-items: center; gap: 12px; }
+.chev {
+  width: 7px; height: 7px; margin-top: -3px;
+  border-right: 1.5px solid var(--muted); border-bottom: 1.5px solid var(--muted);
+  transform: rotate(45deg); transition: transform .3s;
+}
+.job.open .chev { transform: rotate(-135deg); margin-top: 3px; }
+.collapse { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s ease; }
+.collapse > div { overflow: hidden; min-height: 0; visibility: hidden; transition: visibility .3s; }
+.job.open .collapse { grid-template-rows: 1fr; }
+.job.open .collapse > div { visibility: visible; }
+#theme {
+  position: fixed; z-index: 6; top: calc(env(safe-area-inset-top, 0px) + 8px); right: 16px;
+  width: 32px; height: 32px; padding: 0; display: grid; place-items: center;
+  border-radius: 50%; border: 1px solid var(--line); background: var(--bg);
+  color: var(--muted); cursor: pointer;
+}
+#theme:hover { color: var(--fg); }
+@media (min-width: 1120px) { #theme { top: 28px; right: 28px; } }
+@media (max-width: 1119px) { nav { padding-right: 64px; } }
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #fafafa; --fg: #111; --muted: #6b6b6b; --line: #e4e4e4;
+  --desc: #444; --rule: #c2c2c2; --faint: #999; --accent: #4f6fa8;
+}
+.name { display: block; font-size: 1.05rem; font-weight: 600; }
+.date { font: 0.85rem/1.6 var(--mono); color: var(--muted); white-space: nowrap; }
+.desc { margin: 12px 0 0; color: var(--desc); font-size: 0.94rem; }
+@media (max-width: 560px) { .job-head { flex-direction: column; gap: 2px; } }
+footer { margin-top: 72px; font: 0.75rem var(--mono); color: var(--faint); }
+header, section { scroll-margin-top: 80px; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 5;
+  display: flex; gap: 22px; overflow-x: auto;
+  padding: calc(env(safe-area-inset-top, 0px) + 14px) 24px 12px;
+  background: var(--bg); border-bottom: 1px solid var(--line);
+}
+nav a {
+  position: relative; border: 0; white-space: nowrap;
+  color: var(--muted); font-size: 0.95rem; transition: color .25s;
+}
+nav a.active { color: var(--fg); }
+nav a::before {
+  content: ""; position: absolute; left: -16px; top: 50%;
+  width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%;
+  background: var(--accent); opacity: 0; transform: scale(0.4);
+  transition: opacity .25s, transform .25s; display: none;
+}
+@media (min-width: 1120px) {
+  nav {
+    flex-direction: column; gap: 6px; overflow: visible;
+    top: 96px; right: auto; left: calc(50% - 540px);
+    padding: 0 0 0 28px; background: none; border: 0;
+  }
+  nav a { font-size: 1.1rem; padding: 6px 0; }
+  nav a::before { display: block; left: -22px; }
+  nav a.active::before { opacity: 1; transform: scale(1); }
+}
+@media (max-width: 560px) {
+  main { padding-top: 88px; }
+  .row, .links li { grid-template-columns: 1fr; gap: 2px; }
+}
+</style>
+</head>
+<body>
+<button id="theme" type="button" aria-label="Switch between dark and light mode"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 1.5a6.5 6.5 0 0 1 0 13z" fill="currentColor"/></svg></button>
+<nav aria-label="Sections">
+  <a href="#about">about</a>
+  <a href="#education">education</a>
+  <a href="#experience">experience</a>
+  <a href="#projects">projects</a>
+  <a href="#links">links</a>
+</nav>
+<main>
+  <header id="about">
+    <h1>Namit Lakhchowra</h1>
+    <p class="intro">I’m an Information Technology undergraduate interested in Machine Learning and research. I enjoy implementing research papers, experimenting with models, and understanding the algorithms behind them. Currently, I’m exploring Reinforcement Learning and developing a deeper understanding of Large Language Models (LLMs).</p>
+  </header>
+
+  <section id="education">
+    <h2>Education</h2>
+    <div class="row">
+      <div class="when">2025 – 2029</div>
+      <div>
+        <h3>B.Tech, Information Technology</h3>
+        <p class="sub">Maharaja Agrasen Institute of Technology · CGPA 8.8</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="when">2025</div>
+      <div>
+        <h3>Senior Secondary (XII), CBSE</h3>
+        <p class="sub">Mount Carmel School, Dwarka · 89%</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="when">2023</div>
+      <div>
+        <h3>Secondary (X), CBSE</h3>
+        <p class="sub">Mount Carmel School, Dwarka · 96%</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2>Experience</h2>
+    <div class="job">
+      <div class="logo"><img alt="Xtelify logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAcFBQYFBAcGBgYIBwcICxILCwoKCxYPEA0SGhYbGhkWGRgcICgiHB4mHhgZIzAkJiorLS4tGyIyNTEsNSgsLSz/2wBDAQcICAsJCxULCxUsHRkdLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCz/wAARCABYAFgDASIAAhEBAxEB/8QAHAABAQEBAQADAQAAAAAAAAAAAAEHBQYCAwQI/8QAMxAAAQIEBAMIAQMFAQAAAAAAAQACAwQFEQYSITEHE0EUFSIyUVJxkWEWF0IlMzRDgaL/xAAXAQEBAQEAAAAAAAAAAAAAAAAAAQID/8QAGBEBAQEBAQAAAAAAAAAAAAAAABEBMSH/2gAMAwEAAhEDEQA/AP57c52c+I7+qmZ3uP2jvOflRd3NczvcftMzvcftREFzO9x+0zO9x+1EQXM73H7TM73H7URBczvcftMzvcftREFzO9x+0URBXec/KirvOflRARFWtLnBrQSSbAAXJRERapNcHZbDPDxmJMZ1uLSJqP8A41MhQGxI0QkXa03cLO6no0b66LK1M2rBERVBERAREQV3nPytG4V0DA2Lpp9BxFFnqdV49xJTUOYAhRHHZhaRo4dNbO20O+cu85+VWZs7cl81xa29+lvypqvRY2wNWMCYkfSKpCLi7WXjsackwy9g5v56Ebg6el9ZwVgqj8JcNsx7jyGDVCL06mGxe19rg2P+zr6MGp1278P9whh/h/3+aB23vIZe9bdpy5fBe/8APLmvl8V8nW6yjjd+rf3Fmf1V+ew8q/I5F9OXf/1fW+/RZt8a44WLsV1/iPiKaq06yLHMGG57YEFpdDlIAOth0aLi7jud15daPwcqhlKniCQhspjpmoUiNDlmz7YeWLGBBbDzPsMrhe7SbGwvsvngKUpL4+Im1CXp8WvQ47BLwIglnQQzM/ncsRnCEbHKN9G+X1VsTrwNNpM9WI8aDIS7piJAgRJmI1pAyw2C73anoE7pn+4xWOyv7uMx2UR9MvNy5snrfLqtAw9M0eX4lYrdT2QZCnupVRhwIfPa9gJg2yseDZwLr5bE6WXnxCkP2Xhxskv3l36W5tOdyuzA29cub/l0qRyJvDNYkMPylcmpF0CnTrssCK9zRzN9Q2+a3hOtraLlLSuJeKBONwa6FK0h5l6RKzLxBloekS7rwXW2YLf2zoLnTVfp4jyeGqLhlk1RpeWdFxZHZU4DeWM0jKhgvCbp4bxnPGn8WAJVjLERFplXec/K7WE8TRMI1+FWJenSM9MwNYInGOeyG73gAjxDoTtvuuK7zn5URXocY43reOq93tWZgOitGWFChXbDgN9GC+mut9yVrWDMcUXirhcYF4gRmw6gwf0+qvIDi4DS7joHgeujxodd8ETffVTcK7mL8KTmD8QRqVOxIEwG+KFHgPD4cZl9HC235B1BXDsLWsLIABsAPhFQtfoltb21RER9stHiSk1CmYJDYsF4iMJaCA4G4NjodR1X7a7iCqYmqZqFXm3TUzkbDBytY1jG7Na1oAaB6ALmoiiIiIrvOflRV3nPyoiiIiIIiICIiAiIgIiIK7zn5UREURERBERAREQEREBERB//2Q=="></div>
+      <div class="job-body">
+        <button class="job-head" type="button" aria-expanded="false" aria-controls="job1-desc">
+          <span>
+            <span class="name">Airtel Digital</span>
+            <span class="sub">Data Engineering Intern</span>
+          </span>
+          <span class="right"><span class="date">July 2026</span><span class="chev" aria-hidden="true"></span></span>
+        </button>
+        <div class="collapse" id="job1-desc"><div><p class="desc">Developed practical skills in Spring Boot and backend development. Worked with Enigma, an internal Java-based metadata service powering daily ETL pipelines, learning its architecture, metadata management, and development workflow while participating in team knowledge-sharing discussions about its role in the wider data processing ecosystem.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="row">
+      <div class="when">Python · PyTorch</div>
+      <div>
+        <h3><a href="https://github.com/namitlakhchowra/grokking-reproduction" target="_blank" rel="noopener">Grokking Reproduction</a></h3>
+        <p class="sub">Modular division with a small Transformer</p>
+        <ul>
+          <li>Reproduced Figure 1 of Power et al. (2022), “Grokking: Generalization Beyond Overfitting on Small Algorithmic Datasets”, training a 2-layer decoder-only Transformer (width 128, 4 heads) on x / y mod 97, cross-checked against OpenAI’s official implementation.</li>
+          <li>Built the full pipeline: deterministic 50/50 split, Adam (no weight decay) for 1,000,000 steps, checkpoint/resume, evaluation and plotting scripts.</li>
+          <li>Completed run reached 100.00% training and 99.96% validation accuracy (single unseeded run).</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="when">Python · PyTorch · Scikit-learn</div>
+      <div>
+        <h3><a href="https://github.com/namitlakhchowra/ann-hyperparameter-study" target="_blank" rel="noopener">ANN Hyperparameter Study</a></h3>
+        <p class="sub">Wine quality classification</p>
+        <ul>
+          <li>Built a binary classification ANN in PyTorch to predict wine quality from physicochemical features, with a full preprocessing pipeline.</li>
+          <li>Designed a configurable architecture and training loop to study depth, width, activation, optimizer, learning rate and dropout.</li>
+          <li>Ran 19 controlled experiments across 6 hyperparameter dimensions, visualizing training and validation curves to compare convergence and generalization.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="when">Python</div>
+      <div>
+        <h3><a href="https://github.com/namitlakhchowra/simplicity-bias-experimentation" target="_blank" rel="noopener">Simplicity Bias Experimentation</a></h3>
+        <p class="sub">Can simplicity override predictive strength?</p>
+        <ul>
+          <li>Investigated simplicity bias in neural networks: whether models prefer simpler features even when more complex features are more predictive.</li>
+          <li>Generated a synthetic binary classification dataset with a threshold-based simple feature fixed at 75% predictive strength and a nonlinear sine-based complex feature whose strength rises from 75% to 100%.</li>
+          <li>Measured feature reliance on a conflict set where the two features disagree, estimating the transition point and visualizing how predictive strength shapes feature preference.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="when">Python · RAG · FAISS</div>
+      <div>
+        <h3><a href="https://github.com/namitlakhchowra/PDFRAGChatbot" target="_blank" rel="noopener">PDF RAG Chatbot</a></h3>
+        <p class="sub">Chatting with your documents</p>
+        <ul>
+          <li>Built a chatbot that answers questions over PDF documents using a retrieval-augmented generation (RAG) pipeline.</li>
+          <li>Structured the codebase into separate modules for PDF processing, vector store, retrieval and prompting, with a FAISS index for similarity search.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="links">
+    <h2>Links</h2>
+    <ul class="links">
+      <li><span>GitHub</span><a href="https://github.com/namitlakhchowra" target="_blank" rel="noopener">github.com/namitlakhchowra</a></li>
+      <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/namit-lakhchowra-ba23602b5/" target="_blank" rel="noopener">linkedin.com/in/namit-lakhchowra-ba23602b5</a></li>
+      <li><span>Email</span><a href="mailto:namitlakhchowra@gmail.com">namitlakhchowra@gmail.com</a></li>
+    </ul>
+  </section>
+
+  <footer>© 2026 Namit Lakhchowra</footer>
+</main>
+<script>
+(function () {
+  var links = [].slice.call(document.querySelectorAll('nav a'));
+  var secs = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  function update() {
+    var y = window.innerHeight * 0.35, cur = 0;
+    secs.forEach(function (s, i) { if (s.getBoundingClientRect().top <= y) cur = i; });
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) cur = secs.length - 1;
+    links.forEach(function (a, i) { a.classList.toggle('active', i === cur); });
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+  var job = document.querySelector('.job'), jb = job.querySelector('.job-head');
+  jb.addEventListener('click', function () {
+    var open = !job.classList.contains('open');
+    job.classList.toggle('open', open);
+    jb.setAttribute('aria-expanded', String(open));
+  });
+  document.getElementById('theme').addEventListener('click', function () {
+    var root = document.documentElement;
+    var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+  });
+})();
+</script>
+</body>
+</html>
