@@ -25,18 +25,25 @@
 html { scroll-padding-top: env(safe-area-inset-top, 0px); }
 *, *::before, *::after { box-sizing: border-box; }
 body {
+  isolation: isolate; position: relative;
   margin: 0;
   background: var(--bg);
   color: var(--fg);
-  font: 16px/1.65 var(--sans);
+  font: 500 16px/1.65 var(--sans);
   -webkit-font-smoothing: antialiased;
 }
+body::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: url("images/nmtlkh-pattern.svg") repeat;
+  opacity: .09;
+}
+:root[data-theme="light"] body::before { filter: invert(1); }
 main { max-width: 720px; margin: 0 auto; padding: 96px 24px 72px; }
-h1 { font-size: clamp(36px, 5vw, 48px); line-height: 1.1; font-weight: 600; letter-spacing: -0.045em; margin: 0 0 16px; }
+h1 { font-size: clamp(36px, 5vw, 48px); line-height: 1.1; font-weight: 700; letter-spacing: -0.045em; margin: 0 0 16px; }
 .intro { color: var(--muted); max-width: 56ch; margin: 0; }
 section { margin-top: 72px; }
 h2 {
-  font: 400 0.75rem/1 var(--mono);
+  font: 600 0.75rem/1 var(--mono);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted);
@@ -45,13 +52,13 @@ h2 {
   border-bottom: 1px solid var(--line);
 }
 .row { display: grid; grid-template-columns: 140px 1fr; gap: 8px 24px; padding: 14px 0; }
-.when { font: 0.8rem/1.9 var(--mono); color: var(--muted); }
-.row h3 { font-size: 1rem; font-weight: 500; margin: 0; }
+.when { font: 500 0.8rem/1.9 var(--mono); color: var(--muted); }
+.row h3 { font-size: 1rem; font-weight: 650; margin: 0; }
 .sub { color: var(--muted); font-size: 0.92rem; margin: 2px 0 0; }
 ul { margin: 12px 0 0; padding-left: 18px; color: var(--desc); font-size: 0.94rem; }
 li { margin-bottom: 8px; }
 li::marker { color: var(--rule); }
-.tags { font: 0.75rem/1.6 var(--mono); color: var(--muted); margin-top: 10px; }
+.tags { font: 500 0.75rem/1.6 var(--mono); color: var(--muted); margin-top: 10px; }
 a { color: var(--fg); text-decoration: none; border-bottom: 1px solid var(--rule); transition: border-color .2s; }
 a:hover, a:focus-visible { border-color: var(--fg); outline: none; }
 .links { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; list-style: none; padding: 0; margin: 0; }
@@ -59,7 +66,7 @@ a:hover, a:focus-visible { border-color: var(--fg); outline: none; }
 .social-icon { display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 6px; }
 .social-icon:hover, .social-icon:focus-visible { color: var(--accent); }
 .links li:last-child { flex-basis: 100%; display: flex; align-items: baseline; gap: 12px; }
-.links span { font: 0.8rem/1.9 var(--mono); color: var(--muted); }
+.links span { font: 500 0.8rem/1.9 var(--mono); color: var(--muted); }
 .job { display: flex; gap: 18px; padding: 14px 0; }
 .logo {
   flex: none; width: 48px; height: 48px; border-radius: 50%;
@@ -100,8 +107,8 @@ a:hover, a:focus-visible { border-color: var(--fg); outline: none; }
   --bg: #fafafa; --fg: #111; --muted: #6b6b6b; --line: #e4e4e4;
   --desc: #444; --rule: #c2c2c2; --faint: #999; --accent: #4f6fa8;
 }
-.name { display: block; font-size: 1.05rem; font-weight: 600; }
-.date { font: 0.85rem/1.6 var(--mono); color: var(--muted); white-space: nowrap; }
+.name { display: block; font-size: 1.05rem; font-weight: 650; }
+.date { font: 500 0.85rem/1.6 var(--mono); color: var(--muted); white-space: nowrap; }
 .desc { margin: 12px 0 0; color: var(--desc); font-size: 0.94rem; }
 @media (max-width: 560px) { .job-head { flex-direction: column; gap: 2px; } }
 footer { margin-top: 72px; font: 0.75rem var(--mono); color: var(--faint); }
@@ -111,19 +118,13 @@ nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 5;
   display: flex; gap: 22px; overflow-x: auto;
   padding: calc(env(safe-area-inset-top, 0px) + 14px) 24px 12px;
-  background: var(--bg); border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 nav a {
   position: relative; border: 0; white-space: nowrap;
   color: var(--muted); font-size: 0.95rem; transition: color .25s;
 }
 nav a.active { color: var(--fg); }
-nav a::before {
-  content: ""; position: absolute; left: -16px; top: 50%;
-  width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%;
-  background: var(--accent); opacity: 0; transform: scale(0.4);
-  transition: opacity .25s, transform .25s; display: none;
-}
 @media (min-width: 1120px) {
   nav {
     flex-direction: column; gap: 6px; overflow: visible;
@@ -135,8 +136,11 @@ nav a::before {
     height: calc(100% + 6px); width: 1px; background: var(--line); pointer-events: none;
   }
   nav a { font-size: 1.1rem; padding: 6px 0; }
-  nav a::before { display: block; left: -22px; z-index: 1; }
-  nav a.active::before { opacity: 1; transform: scale(1); }
+  nav::before {
+    content: ""; position: absolute; z-index: 1; left: 6px; top: -3.5px;
+    width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+    transform: translateY(var(--indicator-y, 20px)); pointer-events: none;
+  }
 }
 @media (max-width: 560px) {
   main { padding-top: 88px; }
@@ -158,7 +162,7 @@ nav a.active { font-weight: 600; }
 .result-image, .result-image img { display: block; width: 100%; height: auto; border: 0; border-radius: 4px; }
 .rag-flow { display: flex; gap: 20px; list-style: none; margin: 20px 0 4px; padding: 0; }
 .rag-flow li { flex: 1; position: relative; margin: 0; border-top: 1px solid var(--accent); padding-top: 10px; }
-.rag-flow strong { font-weight: 500; }
+.rag-flow strong { font-weight: 650; }
 .rag-flow span { display: block; margin-top: 4px; color: var(--muted); font-size: .85rem; }
 @media (max-width: 560px) { .rag-flow { flex-direction: column; gap: 12px; } .rag-flow li { border: 0; border-left: 2px solid var(--accent); padding: 0 12px; } }
 .chart-grid { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px; padding: 10px 10px 0 0; }
@@ -292,7 +296,7 @@ nav a.active { font-weight: 600; }
           <li>Ran 19 controlled experiments across 6 hyperparameter dimensions, visualizing training and validation curves to compare convergence and generalization.</li>
         </ul>
         <figure class="run-plot"><figcaption>Network depth on the wine-quality task</figcaption>
-          <a class="result-image" href="images/ann-depth.png" aria-label="View full-size plot: Network depth on the wine-quality task"><img src="images/ann-depth.png" width="1620" height="612" loading="lazy" alt="Learning curves for networks with one, two, and four hidden layers."></a>
+          <a class="result-image" href="images/ann-depth.png" data-dark="images/ann-depth.png" data-light="images/ann-depth-light.png" aria-label="View full-size plot: Network depth on the wine-quality task"><img src="images/ann-depth.png" width="1620" height="612" loading="lazy" alt="Learning curves for networks with one, two, and four hidden layers."></a>
         </figure>
       </div>
     </div>
@@ -307,7 +311,7 @@ nav a.active { font-weight: 600; }
           <li>Measured feature reliance on a conflict set where the two features disagree, estimating the transition point and visualizing how predictive strength shapes feature preference.</li>
         </ul>
         <figure class="run-plot"><figcaption>Feature preference under conflicting signals</figcaption>
-          <a class="result-image" href="images/simplicity-bias.png" aria-label="View full-size plot: Feature preference under conflicting signals"><img src="images/simplicity-bias.png" width="1440" height="756" loading="lazy" alt="Experimental results as the complex feature increases in predictive strength from 75% to 100%."></a>
+          <a class="result-image" href="images/simplicity-bias.png" data-dark="images/simplicity-bias.png" data-light="images/simplicity-bias-light.png" aria-label="View full-size plot: Feature preference under conflicting signals"><img src="images/simplicity-bias.png" width="1440" height="756" loading="lazy" alt="Experimental results as the complex feature increases in predictive strength from 75% to 100%."></a>
         </figure>
       </div>
     </div>
@@ -358,15 +362,43 @@ nav a.active { font-weight: 600; }
       toggle.focus();
     }
   });
-  window.matchMedia('(min-width: 1120px)').addEventListener('change', closeMenu);
+  var sidebar = document.getElementById('section-links');
+  var desktop = window.matchMedia('(min-width: 1120px)');
+  desktop.addEventListener('change', closeMenu);
+
+  function linkCenter(link) {
+    return link.offsetTop + link.offsetHeight / 2;
+  }
+
   function update() {
-    var y = window.innerHeight * 0.35, cur = 0;
-    secs.forEach(function (s, i) { if (s.getBoundingClientRect().top <= y) cur = i; });
-    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) cur = secs.length - 1;
-    links.forEach(function (a, i) { a.classList.toggle('active', i === cur); if (i === cur) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+    var scroll = Math.max(0, window.scrollY);
+    var maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    var stops = secs.map(function (section, i) {
+      if (i === 0) return 0;
+      var top = section.getBoundingClientRect().top + window.scrollY;
+      var margin = parseFloat(getComputedStyle(section).scrollMarginTop) || 0;
+      return Math.min(maxScroll, Math.max(0, top - margin));
+    });
+    var current = 0;
+    while (current + 1 < stops.length && scroll > 0 && scroll + 0.5 >= stops[current + 1]) current++;
+
+    if (desktop.matches) {
+      var center = linkCenter(links[current]);
+      if (current + 1 < stops.length && stops[current + 1] > stops[current]) {
+        var progress = Math.max(0, (scroll - stops[current]) / (stops[current + 1] - stops[current]));
+        center += progress * (linkCenter(links[current + 1]) - center);
+      }
+      sidebar.style.setProperty('--indicator-y', center + 'px');
+    }
+    links.forEach(function (link, i) {
+      link.classList.toggle('active', i === current);
+      if (i === current) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
   }
   window.addEventListener('scroll', update, { passive: true });
   window.addEventListener('resize', update);
+  new ResizeObserver(update).observe(document.querySelector('main'));
   update();
   var job = document.querySelector('.job'), jb = job.querySelector('.job-head');
   jb.addEventListener('click', function () {
@@ -374,10 +406,19 @@ nav a.active { font-weight: 600; }
     job.classList.toggle('open', open);
     jb.setAttribute('aria-expanded', String(open));
   });
+  function updatePlotTheme(theme) {
+    document.querySelectorAll('.result-image').forEach(function (link) {
+      var source = link.dataset[theme];
+      link.href = source;
+      link.querySelector('img').src = source;
+    });
+  }
+  updatePlotTheme(document.documentElement.dataset.theme);
   document.getElementById('theme').addEventListener('click', function () {
     var root = document.documentElement;
     var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
     root.setAttribute('data-theme', next);
+    updatePlotTheme(next);
     try { localStorage.setItem('theme', next); } catch (e) {}
   });
 })();
