@@ -198,10 +198,84 @@ nav a.active { font-weight: 600; }
 @media (max-width: 560px) {
   .run-plot { padding: 12px; }
 }
+
+.cover {
+  --cover-ink: #f1f5ff; --cover-secondary: #a6b3ca;
+  min-height: 100vh; min-height: 100svh; margin: 0; position: relative; isolation: isolate;
+  display: grid; grid-template-columns: minmax(0,1fr) minmax(180px,260px);
+  grid-template-rows: auto 1fr auto; gap: 26px;
+  padding: clamp(24px,4vw,68px); overflow: hidden; color: var(--cover-ink);
+  background: radial-gradient(ellipse at 50% 38%, #263347 0%, #101925 40%, #080c12 82%);
+}
+[data-theme="light"] .cover {
+  --cover-ink: #101a23; --cover-secondary: #38495b;
+  background: radial-gradient(ellipse at 50% 38%, #cbddea, #eaf4fa 65%, #f4f8fc);
+}
+.cover-mark { align-self: start; font: 750 1rem/1 var(--sans); letter-spacing: -.04em; }
+.cover-note { grid-column: 2; grid-row: 2; align-self: start; z-index: 1; margin: 0; max-width: 20ch; color: var(--cover-secondary); font: 600 .86rem/1.55 var(--mono); letter-spacing: .09em; text-wrap: balance; }
+.cover-art {
+  position: absolute; z-index: -1; top: 2%; left: 50%;
+  width: min(62vw, 69svh, 780px); aspect-ratio: 1;
+  transform: translate(-50%, var(--drift, 0px)); pointer-events: none;
+}
+.cover-art img, .cover-art canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cover-art canvas { visibility: hidden; }
+.cover-art.has-mesh canvas { visibility: visible; }
+.cover-art.has-mesh img { visibility: hidden; }
+.cover-art img { transform: rotate(var(--fallback-turn, 0deg)); }
+body { overflow-x: clip; }
+main { isolation: isolate; }
+#education, #experience, #projects, #links { position: relative; isolation: isolate; }
+#education, #projects { --surface: #101116; }
+#experience, #links { --surface: var(--bg); }
+[data-theme="light"] #education, [data-theme="light"] #projects { --surface: #eaf2f5; }
+.pixel-edge {
+  position: absolute; left: 50%; bottom: 100%; transform: translateX(-50%);
+  width: 100vw; height: var(--edge-height, 54px); pointer-events: none;
+}
+.cover > .pixel-edge { bottom: 0; z-index: 2; }
+main section::before {
+  content: ""; position: absolute; z-index: -1; left: 50%; top: -12px;
+  transform: translateX(-50%); width: 100vw; height: calc(100% + 84px);
+  background: var(--surface, var(--bg)); pointer-events: none;
+}
+main .pixel-edge { bottom: calc(100% + 12px); }
+.cover-foot { grid-column: 1/-1; grid-row: 3; }
+.cover h1 { font-size: clamp(48px,9.7vw,170px); line-height: .96; letter-spacing: -.071em; margin: 0; }
+.cover-enter {
+  display: inline-flex; align-items: center; gap: 24px; margin-top: 26px; padding: 10px 20px;
+  border: 1px solid var(--cover-secondary); border-radius: 100px; font-size: .9rem; color: var(--cover-ink);
+}
+.cover-enter:hover, .cover-enter:focus-visible { background: var(--cover-ink); color: var(--bg); }
+@media (min-width: 1120px) { body.on-cover #section-links { visibility: hidden; } }
+@media (max-width: 760px) {
+  .cover { grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; gap: 16px; }
+  .cover-note { grid-column: 1; grid-row: 1; justify-self: end; max-width: 20ch; font-size: .8rem; }
+  .cover-mark { grid-column: 1; grid-row: 1; }
+  .cover-art { top: 13%; width: min(89vw, 54svh); }
+  .cover h1 { font-size: clamp(44px,12vw,83px); max-width: 11ch; }
+}
+@media (max-height: 530px) and (min-width: 600px) {
+  .cover { padding-block: 20px; gap: 12px; }
+  .cover-art { width: min(52vw, 58svh); }
+  .cover h1 { font-size: 10vh; }
+}
 </style>
 </head>
 <body>
-<div class="site-tools">
+<header class="cover" aria-labelledby="cover-title">
+  <span class="cover-mark" aria-hidden="true">NMTLKH</span>
+  <div class="cover-art" aria-hidden="true">
+    <img src="images/cover-knot.webp" width="780" height="780" alt="" fetchpriority="high">
+    <canvas></canvas>
+  </div>
+  <p class="cover-note">LEARNING IS THE ULTIMATE LIVING</p>
+  <div class="cover-foot">
+    <h1 id="cover-title">Namit Lakhchowra</h1>
+    <a class="cover-enter" href="#portfolio-start">Explore portfolio <span aria-hidden="true">↓</span></a>
+  </div>
+</header>
+<div class="site-tools" id="portfolio-start" tabindex="-1">
 <button id="sections-toggle" type="button" aria-expanded="false" aria-controls="section-links">Sections <span class="chev" aria-hidden="true"></span></button>
 <nav id="section-links" aria-label="Sections">
   <a href="#about">about</a>
@@ -214,7 +288,7 @@ nav a.active { font-weight: 600; }
 </div>
 <main>
   <header id="about">
-    <h1>Namit Lakhchowra</h1>
+    <h2>About</h2>
     <p class="intro">I’m an Information Technology undergraduate interested in Machine Learning and research. I enjoy implementing research papers, experimenting with models, and understanding the algorithms behind them. Currently, I’m exploring Reinforcement Learning and developing a deeper understanding of Large Language Models (LLMs).</p>
   </header>
 
@@ -346,6 +420,7 @@ nav a.active { font-weight: 600; }
 
   <footer>© 2026 Namit Lakhchowra</footer>
 </main>
+<script src="scroll-art.js"></script>
 <script>
 (function () {
   var links = [].slice.call(document.querySelectorAll('nav a'));
@@ -370,18 +445,20 @@ nav a.active { font-weight: 600; }
     return link.offsetTop + link.offsetHeight / 2;
   }
 
+  var cover = document.querySelector('.cover');
   function update() {
     var scroll = Math.max(0, window.scrollY);
+    var coverHeight = cover.offsetHeight;
+    document.body.classList.toggle('on-cover', scroll < coverHeight - 96);
     var maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
     var stops = secs.map(function (section, i) {
-      if (i === 0) return 0;
+      if (i === 0) return Math.min(coverHeight, maxScroll);
       var top = section.getBoundingClientRect().top + window.scrollY;
       var margin = parseFloat(getComputedStyle(section).scrollMarginTop) || 0;
       return Math.min(maxScroll, Math.max(0, top - margin));
     });
     var current = 0;
     while (current + 1 < stops.length && scroll > 0 && scroll + 0.5 >= stops[current + 1]) current++;
-
     if (desktop.matches) {
       var center = linkCenter(links[current]);
       if (current + 1 < stops.length && stops[current + 1] > stops[current]) {
