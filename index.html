@@ -347,16 +347,18 @@ main .pixel-edge { bottom: calc(100% + 12px); }
     </div>
     <div class="row">
       <div>
-        <h3><a href="https://github.com/namitlakhchowra/ann-hyperparameter-study" target="_blank" rel="noopener">ANN Hyperparameter Study&nbsp;<span class="link-arrow" aria-hidden="true">↗</span></a></h3>
-        <p class="tags">Python · PyTorch · Scikit-learn</p>
-        <p class="sub">Wine quality classification</p>
+        <h3><a href="https://github.com/namitlakhchowra/Mini-DeepSeekMath" target="_blank" rel="noopener">Mini-DeepSeekMath&nbsp;<span class="link-arrow" aria-hidden="true">↗</span></a></h3>
+        <p class="tags">Python · PyTorch · Hugging Face Transformers · LoRA</p>
+        <p class="sub">Can a small reinforcement learning run improve a model’s math answers?</p>
         <ul>
-          <li>Built a binary classification ANN in PyTorch to predict wine quality from physicochemical features, with a full preprocessing pipeline.</li>
-          <li>Designed a configurable architecture and training loop to study depth, width, activation, optimizer, learning rate and dropout.</li>
-          <li>Ran 19 controlled experiments across 6 hyperparameter dimensions, visualizing training and validation curves to compare convergence and generalization.</li>
+          <li>Implemented Group Relative Policy Optimization (GRPO) for Qwen2.5-0.5B-Instruct using rank-8 LoRA adapters.</li>
+          <li>Sampled four solutions per GSM8K training question and rewarded correct final answers. Each solution’s training signal depended on how it scored against the other three.</li>
         </ul>
-        <figure class="run-plot"><figcaption>Network depth on the wine-quality task</figcaption>
-          <a class="result-image" href="images/ann-depth.png" data-dark="images/ann-depth.png" data-light="images/ann-depth-light.png" aria-label="View full-size plot: Network depth on the wine-quality task"><img src="images/ann-depth.png" width="1620" height="612" loading="lazy" alt="Learning curves for networks with one, two, and four hidden layers."></a>
+        <figure class="run-plot"><figcaption>Accuracy on the same 50 GSM8K test questions</figcaption>
+          <ul class="rag-flow">
+            <li><strong>Before training</strong><span>23 of 50 correct · 46%</span></li>
+            <li><strong>After GRPO</strong><span>23 of 50 correct · 46%</span></li>
+          </ul>
         </figure>
       </div>
     </div>
